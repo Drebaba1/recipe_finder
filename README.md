@@ -9,7 +9,7 @@ A Flutter application that allows users to search and view recipes using [TheMea
 - Riverpod state management
 - Elegant UI with loading/error states
 
-## Project Structure 🏗️
+<!-- ## Project Structure 🏗️
 lib/
 ├── core/
 │ ├── constants/ # App constants and configurations
@@ -33,7 +33,7 @@ lib/
 │ ├── providers/ # Feature providers
 │ ├── widgets/ # Feature widgets
 │ └── recipe_theme.dart # Theme data
-└── main.dart # App entry point
+└── main.dart # App entry point -->
 
 ## State Management ⚙️
 - Uses **Riverpod** providers to manage:
