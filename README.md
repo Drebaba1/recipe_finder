@@ -65,6 +65,6 @@ You can View the Apk [Demo](https://appetize.io/app/b_7ngrcboipxwtrzuu3lg7cmcd3q
 
 ## Screenshots
 
-![Recipe Finder App - Home Screen](Screenshot_1754686203.png)
-![Recipe Finder App - Search Results](Screenshot_1754686220.png)
-![Recipe Finder App - Recipe Details](Screenshot_1754686138.png)
+![Recipe Finder App - Home Screen](asset/screenshots/Screenshot_1754686203.png)
+![Recipe Finder App - Search Results](asset/screenshots/Screenshot_1754686220.png)
+![Recipe Finder App - Recipe Details](asset/screenshots/Screenshot_1754686138.png)
