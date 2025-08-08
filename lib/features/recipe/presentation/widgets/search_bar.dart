@@ -14,12 +14,19 @@ class RecipeSearchBar extends StatefulWidget {
   });
 
   @override
-  State<RecipeSearchBar> createState() => _RecipeSearchBarState();
+  State<RecipeSearchBar> createState() => RecipeSearchBarState();
 }
 
-class _RecipeSearchBarState extends State<RecipeSearchBar> {
+class RecipeSearchBarState extends State<RecipeSearchBar> {
   late final TextEditingController _searchController;
   bool _hasInput = false;
+
+  void updateSearchText(String text) {
+    _searchController.text = text;
+    setState(() {
+      _hasInput = text.isNotEmpty;
+    });
+  }
 
   @override
   void initState() {
@@ -38,6 +45,9 @@ class _RecipeSearchBarState extends State<RecipeSearchBar> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialValue != widget.initialValue) {
       _searchController.text = widget.initialValue;
+      setState(() {
+        _hasInput = widget.initialValue.isNotEmpty;
+      });
     }
   }
 
@@ -59,6 +69,9 @@ class _RecipeSearchBarState extends State<RecipeSearchBar> {
                 icon: const Icon(Icons.clear),
                 onPressed: () {
                   _searchController.clear();
+                  setState(() {
+                    _hasInput = false;
+                  });
                   widget.onClear();
                 },
               )

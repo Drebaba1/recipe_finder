@@ -19,6 +19,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(recipeNotifierProvider);
     final notifier = ref.read(recipeNotifierProvider.notifier);
+    final searchBarKey = GlobalKey<RecipeSearchBarState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -31,14 +32,19 @@ class HomePage extends ConsumerWidget {
         child: Column(
           children: [
             RecipeSearchBar(
-              // initialValue: notifier.lastSearchTerm,
+              key: searchBarKey,
+              initialValue: state.lastSearchTerm,
               onSearch: (term) => notifier.search(term),
               onClear: notifier.clearSearch,
             ),
             const SizedBox(height: 16),
             Expanded(
               child: switch (state) {
-                InitialRecipeState() => _buildInitialState(context, ref),
+                InitialRecipeState() => _buildInitialState(
+                  context,
+                  ref,
+                  searchBarKey,
+                ),
                 LoadingRecipeState() => const LoadingWidget(),
                 LoadedRecipeState() => _buildRecipeList(state.recipes),
                 ErrorRecipeState() => ErrorDisplayWidget(
@@ -55,7 +61,11 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildInitialState(BuildContext context, WidgetRef ref) {
+  Widget _buildInitialState(
+    BuildContext context,
+    WidgetRef ref,
+    GlobalKey<RecipeSearchBarState> searchBarKey,
+  ) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -109,17 +119,19 @@ class HomePage extends ConsumerWidget {
                     spacing: 8,
                     runSpacing: 8,
                     alignment: WrapAlignment.center,
-                    children:
-                        ['Pasta', 'Chicken', 'Dessert', 'Vegetarian', 'Salad']
-                            .map(
-                              (term) => ActionChip(
-                                label: Text(term),
-                                onPressed: () => ref
-                                    .read(recipeNotifierProvider.notifier)
-                                    .search(term),
-                              ),
-                            )
-                            .toList(),
+                    children: ['Pasta', 'Chicken', 'Vegetarian', 'Salad']
+                        .map(
+                          (term) => ActionChip(
+                            label: Text(term),
+                            onPressed: () {
+                              searchBarKey.currentState?.updateSearchText(term);
+                              ref
+                                  .read(recipeNotifierProvider.notifier)
+                                  .search(term);
+                            },
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),

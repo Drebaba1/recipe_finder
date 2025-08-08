@@ -6,7 +6,6 @@ import 'package:recipe_finder/features/recipe/presentation/providers/recipe_stat
 class RecipeNotifier extends StateNotifier<RecipeState> {
   final SearchRecipes searchRecipes;
   final InputConverter inputConverter;
-  String _lastSearchTerm = '';
 
   RecipeNotifier({required this.searchRecipes, required this.inputConverter})
     : super(const InitialRecipeState());
